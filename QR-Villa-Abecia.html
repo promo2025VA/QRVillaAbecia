@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Villa Abecia - Historia, Cultura y Turismo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c5530;
+            --secondary-color: #7ea04d;
+            --accent-color: #f2edd7;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            background-color: var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent-color) !important;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('.//imagenes/villa.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 0;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .category-card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 30px;
+            background-color: white;
+            height: 100%;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .category-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+        
+        .category-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .gallery-item {
+            margin-bottom: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            background-color: white;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .gallery-img {
+            height: 250px;
+            object-fit: cover;
+            width: 100%;
+        }
+        
+        .gallery-content {
+            padding: 20px;
+        }
+        
+        .map-container {
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 10px 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            color: white;
+        }
+        
+        .category-nav {
+            background-color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .category-link {
+            color: var(--text-color);
+            font-weight: 500;
+            text-decoration: none;
+            padding: 5px 15px;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        
+        .category-link:hover, .category-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-mountain me-2"></i>
+                Villa Abecia
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#inicio">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#historia">Historia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#cultura">Cultura</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#turismo">Turismo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#mapa">Ubicación</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero-section">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-4">Descubre Villa Abecia</h1>
+            <p class="lead mb-4">Un pueblo lleno de historia, cultura y paisajes impresionantes en el sur de Bolivia</p>
+            <a href="#historia" class="btn btn-primary btn-lg">Explorar</a>
+        </div>
+    </section>
+
+    <!-- Categorías -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">Conoce Villa Abecia</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="category-card text-center p-4">
+                        <div class="category-icon">
+                            <i class="fas fa-landmark"></i>
+                        </div>
+                        <h3>Historia</h3>
+                        <p>Descubre los orígenes y evolución de nuestro pueblo a través del tiempo.</p>
+                        <a href="#historia" class="btn btn-primary">Ver más</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="category-card text-center p-4">
+                        <div class="category-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <h3>Cultura</h3>
+                        <p>Conoce nuestras tradiciones, festividades y expresiones culturales.</p>
+                        <a href="#cultura" class="btn btn-primary">Ver más</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="category-card text-center p-4">
+                        <div class="category-icon">
+                            <i class="fas fa-hiking"></i>
+                        </div>
+                        <h3>Turismo</h3>
+                        <p>Explora los atractivos naturales y sitios de interés de Villa Abecia.</p>
+                        <a href="#turismo" class="btn btn-primary">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navegación entre categorías -->
+    <div class="category-nav">
+        <div class="container">
+            <div class="d-flex justify-content-center flex-wrap">
+                <a href="#historia" class="category-link mx-2">Historia</a>
+                <a href="#cultura" class="category-link mx-2">Cultura</a>
+                <a href="#turismo" class="category-link mx-2">Turismo</a>
+                <a href="#mapa" class="category-link mx-2">Ubicación</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Historia -->
+    <section id="historia" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Historia de Villa Abecia</h2>
+            <div class="row">
+                <!-- Ejemplo de elemento de galería -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item fade-in">
+                        <img src="fotos/historia1.jpg" class="gallery-img" alt="Fundación de Villa Abecia">
+                        <div class="gallery-content">
+                            <h4>Fundación del Pueblo</h4>
+                            <p>Villa Abecia fue fundada en el siglo XIX, inicialmente como un pequeño asentamiento agrícola que fue creciendo con el tiempo.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item fade-in">
+                        <img src="fotos/historia2.jpg" class="gallery-img" alt="Edificio histórico">
+                        <div class="gallery-content">
+                            <h4>Arquitectura Colonial</h4>
+                            <p>La arquitectura del pueblo conserva elementos coloniales que reflejan su historia y desarrollo a lo largo de los años.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item fade-in">
+                        <img src="fotos/historia3.jpg" class="gallery-img" alt="Personajes históricos">
+                        <div class="gallery-content">
+                            <h4>Personajes Ilustres</h4>
+                            <p>A lo largo de su historia, Villa Abecia ha sido cuna de personajes importantes que han contribuido al desarrollo regional.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cultura -->
+    <section id="cultura" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">Cultura y Tradiciones</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item fade-in">
+                        <img src="fotos/cultura1.jpg" class="gallery-img" alt="Festividad tradicional">
+                        <div class="gallery-content">
+                            <h4>Festividades Locales</h4>
+                            <p>Las festividades en Villa Abecia son coloridas celebraciones que mezclan tradiciones ancestrales con elementos modernos.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item fade-in">
+                        <img src="fotos/cultura2.jpg" class="gallery-img" alt="Artesanías">
+                        <div class="gallery-content">
+                            <h4>Artesanías Locales</h4>
+                            <p>Los artesanos de Villa Abecia crean piezas únicas que reflejan la identidad cultural de la región.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item fade-in">
+                        <img src="fotos/cultura3.jpg" class="gallery-img" alt="Gastronomía">
+                        <div class="gallery-content">
+                            <h4>Gastronomía Tradicional</h4>
+                            <p>La cocina local ofrece platillos únicos preparados con ingredientes regionales y recetas transmitidas por generaciones.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Turismo -->
+    <section id="turismo" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Atractivos Turísticos</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item fade-in">
+                        <img src="fotos/turismo1.jpg" class="gallery-img" alt="Plaza principal">
+                        <div class="gallery-content">
+                            <h4>Plaza Principal</h4>
+                            <p>El corazón de Villa Abecia, rodeada de edificios históricos y un ambiente acogedor que invita al descanso.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item fade-in">
+                        <img src="fotos/turismo2.jpg" class="gallery-img" alt="Mirador natural">
+                        <div class="gallery-content">
+                            <h4>Mirador Natural</h4>
+                            <p>Desde este punto se puede apreciar una vista panorámica impresionante de los valles y montañas circundantes.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item fade-in">
+                        <img src="fotos/turismo3.jpg" class="gallery-img" alt="Pinturas rupestres">
+                        <div class="gallery-content">
+                            <h4>Pinturas Rupestres</h4>
+                            <p>Estas antiguas manifestaciones artísticas muestran escenas de la vida de los pueblos originarios de la región.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item fade-in">
+                        <img src="fotos/turismo4.jpg" class="gallery-img" alt="Río Chico">
+                        <div class="gallery-content">
+                            <h4>Río Chico</h4>
+                            <p>Este río serpentea a través del paisaje, ofreciendo un entorno natural perfecto para actividades al aire libre.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item fade-in">
+                        <img src="fotos/turismo5.jpg" class="gallery-img" alt="Viñedos">
+                        <div class="gallery-content">
+                            <h4>Viñedos y Bodegas</h4>
+                            <p>La región es conocida por su producción de vinos artesanales, cultivados en viñedos familiares con técnicas tradicionales.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item fade-in">
+                        <img src="fotos/turismo6.jpg" class="gallery-img" alt="Senderos">
+                        <div class="gallery-content">
+                            <h4>Senderos Naturales</h4>
+                            <p>Ideal para el ecoturismo, estos senderos permiten explorar la diversidad natural de los alrededores de Villa Abecia.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mapa y Ubicación -->
+    <section id="mapa" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">Ubicación y Cómo Llegar</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3743.119567259582!2d-65.9458377243331!3d-20.26823688113483!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93fc4e8a8c5e5f5f%3A0x5d1b5e5b5b5b5b5b!2sVilla%20Abecia%2C%20Bolivia!5e0!3m2!1ses!2sbo!4v1649876543210!5m2!1ses!2sbo" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h4 class="mt-4 mt-lg-0">Cómo llegar a Villa Abecia</h4>
+                    <p>Villa Abecia se encuentra en el departamento de Chuquisaca, Bolivia. A continuación, las principales formas de llegar:</p>
+                    
+                    <div class="mt-4">
+                        <h5><i class="fas fa-car me-2"></i>En vehículo particular</h5>
+                        <p>Desde Sucre, tomar la carretera hacia Potosí y luego desviarse hacia Villa Abecia. El recorrido toma aproximadamente 2 horas.</p>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h5><i class="fas fa-bus me-2"></i>En transporte público</h5>
+                        <p>Existen buses regulares que salen desde la terminal de Sucre con destino a Villa Abecia varias veces al día.</p>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h5><i class="fas fa-map-marked-alt me-2"></i>Coordenadas GPS</h5>
+                        <p>Latitud: -20.2682 | Longitud: -65.9458</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h4>Villa Abecia</h4>
+                    <p>Descubre la belleza, historia y cultura de nuestro pueblo en el sur de Bolivia.</p>
+                    <div class="mt-3">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>Enlaces Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#historia" class="text-white">Historia</a></li>
+                        <li><a href="#cultura" class="text-white">Cultura</a></li>
+                        <li><a href="#turismo" class="text-white">Turismo</a></li>
+                        <li><a href="#mapa" class="text-white">Ubicación</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> Villa Abecia, Chuquisaca, Bolivia</li>
+                        <li><i class="fas fa-phone me-2"></i> +591 4 1234567</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@villaabeciaturismo.com</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="bg-white my-4">
+            <div class="text-center">
+                <p>&copy; 2023 Villa Abecia. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón para volver al inicio -->
+    <a href="#inicio" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Efecto de aparición al hacer scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOnScroll = function() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.classList.add('visible');
+                    }
+                });
+            };
+            
+            // Ejecutar una vez al cargar la página
+            fadeInOnScroll();
+            
+            // Ejecutar al hacer scroll
+            window.addEventListener('scroll', fadeInOnScroll);
+            
+            // Navegación suave
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Actualizar enlaces activos en la navegación de categorías
+            const categoryLinks = document.querySelectorAll('.category-link');
+            
+            const updateActiveLink = function() {
+                const scrollPosition = window.scrollY;
+                
+                document.querySelectorAll('section[id]').forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.clientHeight;
+                    const sectionId = section.getAttribute('id');
+                    
+                    if(scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        categoryLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if(link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', updateActiveLink);
+        });
+    </script>
+</body>
+</html>
